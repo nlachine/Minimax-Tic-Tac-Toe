@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minimax Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section>
+        <h1 class="text-2x text-center">Minimax Tic Tac Toe</h1>
+      <div id="board">
+        <!-- Row 1 -->
+        <div class="cell" id="0"></div>
+        <div class="cell" id="1"></div>
+        <div class="cell" id="2"></div>
+        <!-- Row 2 -->
+        <div class="cell" id="3"></div>
+        <div class="cell" id="4"></div>
+        <div class="cell" id="5"></div>
+        <!-- Row 3 -->
+        <div class="cell" id="6"></div>
+        <div class="cell" id="7"></div>
+        <div class="cell" id="8"></div>
+      </div>
 
-    <script src="index.js"></script>
-</body>
+      <div id="result">
+        <h2 class="text-xl text-center" id="winText">This winner is </h2>
+        <button id="reset">Play Again</button>
+      </div>
+    </section>
+    <script src="logic.js"></script>
+  </body>
 </html>
