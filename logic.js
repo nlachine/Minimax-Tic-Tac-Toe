@@ -21,51 +21,60 @@ const winCombos = [
 //Retrieve all game elements
 const cells = document.querySelectorAll(".cell");
 const winText = document.querySelector("#winText");
+const playAgainBtn = document.querySelector("#reset");
 
 //Check if spot is available
 const CheckMove = (id, value) => {
-  //Check if there is no value in the cell
-  if (value === "" && !gameOver) {
-    placedPeices += 1;
-    //Place the peice
-    cells[id].innerHTML = currentPlayer;
-
-    //Check to see if this was the winning move
+    //Check if there is no value in the cell
+    if (value === "" && !gameOver) {
+        placedPeices += 1;
+        //Place the peice
+        cells[id].innerHTML = currentPlayer;
+        
+        //Check to see if this was the winning move
     if (winner === "") CheckWin();
-
+    
     //Change Turn
     currentPlayer = currentPlayer === huPlayer ? aiPLayer : huPlayer;
-  }
+}
 };
 
 const CheckWin = () => {
-  winCombos.forEach((combo) => {
-    if (
-      (cells[combo[0]].innerHTML === "O" ||
-        cells[combo[0]].innerHTML === "X") &&
-      cells[combo[0]].innerHTML === cells[combo[1]].innerHTML &&
+    winCombos.forEach((combo) => {
+        if (
+            (cells[combo[0]].innerHTML === "O" ||
+            cells[combo[0]].innerHTML === "X") &&
+            cells[combo[0]].innerHTML === cells[combo[1]].innerHTML &&
       cells[combo[1]].innerHTML === cells[combo[2]].innerHTML
-    ) {
-      gameOver = true;
-      winner = cells[combo[0]].innerHTML;
+      ) {
+          gameOver = true;
+          winner = cells[combo[0]].innerHTML;
       winText.innerHTML = `The Winner is ${winner}`;
     } else if (placedPeices === 9) {
-      winText.innerHTML = `Tie Game!`;
+        winText.innerHTML = `Tie Game!`;
     }   
-  });
+});
 };
 
-//Setup New Game
-const Setup = () => {
-  cells.forEach((cell) =>
-    cell.addEventListener("click", () => CheckMove(cell.id, cell.innerHTML))
-  );
-  currentPlayer = "O";
-};
+//Reset Game
+const ResetGame = () => {
+    console.log("clicked")
+    gameOver = false;
+    cells.forEach(cell => cell.innerHTML = '');
+    winner = '';
+    winText.innerHTML = "";
+    placedPeices = 0;
+}
 
+//Start New Game
 const StartGame = () => {
-  Setup();
+    ResetGame();
+    cells.forEach((cell) =>
+    cell.addEventListener("click", () => CheckMove(cell.id, cell.innerHTML))
+    );
+    playAgainBtn.addEventListener("click", ResetGame);
+    currentPlayer = "O";
 };
 
-//Start Game
+// Run Game
 StartGame();
