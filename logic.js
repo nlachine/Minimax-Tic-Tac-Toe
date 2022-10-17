@@ -1,12 +1,14 @@
-// let defaultBoard = ["", "", "", "", "", "", "", "", ""];
+//Noah Lachine
+//noahlachine.ca
+
+let board = ["", "", "", "", "", "", "", "", ""];
 const huPlayer = "O";
 const aiPLayer = "X";
-let currentPlayer = "O";
+let currentPlayer;
 let gameOver = false;
-let winner = "";
 let placedPeices = 0;
 
-// Define Win Combinations by Array Index
+// Define Win Combinations by Array item
 const winCombos = [
   [0, 1, 2],
   [3, 4, 5],
@@ -23,57 +25,96 @@ const cells = document.querySelectorAll(".cell");
 const winText = document.querySelector("#winText");
 const playAgainBtn = document.querySelector("#reset");
 
-//Check if spot is available
-const CheckMove = (id, value) => {
-    //Check if there is no value in the cell
-    if (value === "" && !gameOver) {
-        placedPeices += 1;
-        //Place the peice
-        cells[id].innerHTML = currentPlayer;
-        
-        //Check to see if this was the winning move
-    if (winner === "") CheckWin();
-    
-    //Change Turn
-    currentPlayer = currentPlayer === huPlayer ? aiPLayer : huPlayer;
-}
+NextTurn = () => {
+  currentPlayer = currentPlayer === huPlayer ? aiPLayer : huPlayer;
+  if (currentPlayer === aiPLayer) BestOption();
+  //Else wait for human input.
 };
 
-const CheckWin = () => {
-    winCombos.forEach((combo) => {
-        if (
-            (cells[combo[0]].innerHTML === "O" ||
-            cells[combo[0]].innerHTML === "X") &&
-            cells[combo[0]].innerHTML === cells[combo[1]].innerHTML &&
-      cells[combo[1]].innerHTML === cells[combo[2]].innerHTML
-      ) {
-          gameOver = true;
-          winner = cells[combo[0]].innerHTML;
-      winText.innerHTML = `The Winner is ${winner}`;
-    } else if (placedPeices === 9) {
-        winText.innerHTML = `Tie Game!`;
-    }   
-});
+//Check if spot is available and Place
+MakeMove = (i) => {
+  if (ValidateMove(i) && currentPlayer === huPlayer) PlaceMove(i);
+};
+
+//Validate that there is no piece there
+ValidateMove = (i) => {
+  return board[i] === "" && !gameOver ? true : false;
+};
+
+PlaceMove = (i) => {
+
+  //Place the peiece
+  cells[i].innerHTML = currentPlayer;
+  board[i] = currentPlayer;
+
+  //Check to see if this was the winning move
+  EndGame();
+
+  //Change Turn
+  if (!gameOver) NextTurn();
+};
+
+//Check for a winner or tie game
+CheckWin = () => {
+  let winner = null;
+
+  //Check for a winning combination
+  winCombos.forEach((combo) => {
+    if (
+      board[combo[0]] !== "" &&
+      board[combo[0]] === board[combo[1]] &&
+      board[combo[1]] === board[combo[2]]
+    ) {
+      winner = board[combo[0]];
+    }
+  });
+
+  //Check if board is full
+  let placedPeices = 0;
+  for (let i = 0; i < board.length; i++) {
+    if (board[i] != "") placedPeices++;
+  }
+
+  //Return game result
+  if (winner === null && placedPeices === 9) {
+    return "tie";
+  } else {
+    return winner;
+  }
+};
+
+EndGame = () => {
+  let result = CheckWin();
+
+  //Change display
+  if (result !== null) {
+    if (result === "tie") {
+      winText.innerHTML = `Tie Game`;
+    } else {
+      winText.innerHTML = `The winner is ${result}`;
+    }
+    gameOver = true;
+  }
 };
 
 //Reset Game
-const ResetGame = () => {
-    console.log("clicked")
-    gameOver = false;
-    cells.forEach(cell => cell.innerHTML = '');
-    winner = '';
-    winText.innerHTML = "";
-    placedPeices = 0;
-}
+ResetGame = () => {
+  gameOver = false;
+  cells.forEach((cell) => (cell.innerHTML = ""));
+  board = ["", "", "", "", "", "", "", "", ""];
+  winText.innerHTML = "";
+  placedPeices = 0;
+  currentPlayer = huPlayer;
+  // NextTurn()
+};
 
 //Start New Game
-const StartGame = () => {
-    ResetGame();
-    cells.forEach((cell) =>
-    cell.addEventListener("click", () => CheckMove(cell.id, cell.innerHTML))
-    );
-    playAgainBtn.addEventListener("click", ResetGame);
-    currentPlayer = "O";
+StartGame = () => {
+  ResetGame();
+  cells.forEach((cell) =>
+    cell.addEventListener("click", () => MakeMove(cell.id))
+  );
+  playAgainBtn.addEventListener("click", ResetGame);
 };
 
 // Run Game
