@@ -6,10 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minimax Tic Tac Toe</title>
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Google Fonts - Roboto Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <section>
-        <h1 class="text-2x text-center">Minimax Tic Tac Toe</h1>
+      <h1>Minimax Tic Tac Toe</h1>
+      <p>
+        Welcome to my version of Tic-Tac-Toe. I have programmed the AI to play
+        against you, and is it ever good. Good luck trying to win a game... you
+        never will! Start by clicking anywhere on the board to make a move.
+      </p>
       <div id="board">
         <!-- Row 1 -->
         <div class="cell" id="0"></div>
@@ -24,12 +37,13 @@
         <div class="cell" id="7"></div>
         <div class="cell" id="8"></div>
       </div>
-
-      <div id="result">
-        <h2 class="text-xl text-center" id="winText"></h2>
+    </section>
+    <div class="invisible" id="result">
+      <div>
+        <h2 id="winText"></h2>
         <button id="reset">Play Again</button>
       </div>
-    </section>
+    </div>
     <script src="minimax.js"></script>
     <script src="logic.js"></script>
   </body>

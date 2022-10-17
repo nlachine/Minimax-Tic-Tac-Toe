@@ -146,46 +146,29 @@ table {
   --weight-bold: 700;
 }
 
-body {
-  font-family: sans-serif;
+@media screen and (max-width: 769px){
+  :root{
+    --text-2x: 2.5rem;
+  }
 }
 
-/* Utility Classes */
-.text-base {
+html * {
+  font-family: "Roboto Mono", monospace;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: var(--text-2x);
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 4rem;
   font-size: var(--text-base);
   line-height: normal;
-}
-.text-lg {
-  font-size: var(--text-lg);
-  line-height: normal;
-}
-.text-xl {
-  font-size: var(--text-xl);
-  line-height: normal;
-}
-.text-2x {
-  font-size: var(--text-2x);
-  line-height: normal;
-}
-
-.text-center {
+  max-width: 500px;
   text-align: center;
-}
-.text-right {
-  text-align: right;
-}
-.text-left {
-  text-align: left;
-}
-
-.weight-reg {
-  font-weight: var(--weight-reg);
-}
-.weight-semi {
-  font-weight: var(--weight-semi);
-}
-.weight-bold {
-  font-weight: var(--weight-bold);
 }
 
 section {
@@ -202,7 +185,7 @@ section {
   display: grid;
   gap: 0.25rem;
   grid-template-columns: repeat(3, 1fr);
-  background: black;
+  background: darkslategray;
   width: 100%;
   max-width: 700px;
 }
@@ -216,6 +199,7 @@ section {
   aspect-ratio: 1;
   background-color: white;
   font-size: 4rem;
+  font-family: sans-serif;
   user-select: none;
 }
 
@@ -223,7 +207,51 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  
+  background-color: rgba(0,0,0,0.25);
+}
+
+#result > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+
+  width: 90%;
+  transition: 300ms;
+}
+
+#winText {
+  padding: 1rem;
+  background-color: white;
+  font-size: var(--text-xl);
   width: 100%;
-  padding: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+button {
+  font-size: var(--text-base);
+  background-color: black;
+  color: lightgray;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 1rem;
+  transition: 300ms;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background: darkslategrey;
+}
+
+.invisible {
+  display: none !important;
 }

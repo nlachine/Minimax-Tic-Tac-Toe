@@ -24,6 +24,7 @@ const winCombos = [
 const cells = document.querySelectorAll(".cell");
 const winText = document.querySelector("#winText");
 const playAgainBtn = document.querySelector("#reset");
+const resultContainer = document.querySelector("#result");
 
 NextTurn = () => {
   currentPlayer = currentPlayer === huPlayer ? aiPLayer : huPlayer;
@@ -88,10 +89,11 @@ EndGame = () => {
 
   //Change display
   if (result !== null) {
+    resultContainer.classList.toggle("invisible");
     if (result === "tie") {
       winText.innerHTML = `Tie Game`;
     } else {
-      winText.innerHTML = `The winner is ${result}`;
+      winText.innerHTML = `${result} Wins!`;
     }
     gameOver = true;
   }
@@ -105,6 +107,7 @@ ResetGame = () => {
   winText.innerHTML = "";
   placedPeices = 0;
   currentPlayer = huPlayer;
+  resultContainer.classList.add("invisible");
   // NextTurn()
 };
 
